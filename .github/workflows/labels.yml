@@ -2,6 +2,7 @@ name: Create labels
 # Run once from the Actions tab (Run workflow). Creates or updates the labels in .github/labels.json.
 on: workflow_dispatch
 permissions:
+  contents: read
   issues: write
 jobs:
   labels:
