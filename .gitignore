@@ -7,3 +7,9 @@ logs/
 *.env
 .env
 node_modules/
+
+# QA additions
+__pycache__/
+*.pyc
+tests/ai-eval/raw/
+scripts/create_issues.sh
