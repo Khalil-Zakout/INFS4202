@@ -17,6 +17,6 @@ USR-05/SEC-05: a Student sees only their own data; access control is enforced on
 **Priority:** P1
 **Category:** security
 **Environment:** Portal (Java 17, Spring Boot 3) + Engine 1.0.0 on 127.0.0.1; Chrome/Firefox current; AI provider only where noted.
-**Evidence:** qa:SecurityAccessTest.studentCannotOpenAnotherStudentsApplication.
+**Evidence:** qa:SecurityAccessTest.studentCannotOpenAnotherStudentsApplication fails (expected 403, got 200); tests/system/reproduce.py prints "[D05] DEFECT student.omar can open Amal's application /applications/3" and the page shows her letter and offer.
 **Discovered by:** Abdulaziz Debs
 **Technique that found it:** Forced-browsing / IDOR

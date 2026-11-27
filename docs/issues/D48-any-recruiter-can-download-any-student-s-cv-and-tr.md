@@ -17,6 +17,6 @@ USR-05: a Recruiter sees only data of their own company. `StudentController.down
 **Priority:** P1
 **Category:** security
 **Environment:** Portal (Java 17, Spring Boot 3) + Engine 1.0.0 on 127.0.0.1; Chrome/Firefox current; AI provider only where noted.
-**Evidence:** tests/system doc-idor; `StudentController.download` allows `user.is(Role.RECRUITER)` unconditionally.
+**Evidence:** tests/system/reproduce.py prints "[D48] DEFECT recruiter.gulfbank downloaded Amal's CV /documents/1" (HTTP 200, body starts %PDF). Control: student.omar gets 403 on the same URL. Source: `StudentController.download` allows `user.is(Role.RECRUITER)` unconditionally.
 **Discovered by:** Abdulaziz Debs
 **Technique that found it:** Forced-browsing / IDOR

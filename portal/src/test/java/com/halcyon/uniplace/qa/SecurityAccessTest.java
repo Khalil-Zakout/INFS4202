@@ -50,6 +50,19 @@ class SecurityAccessTest extends IntegrationTest {
                 .andExpect(status().isForbidden());
     }
 
+    /**
+     * USR-05 / SEC-05: the Coordinator reports (ADM-02) show figures for every company, so a Recruiter
+     * (who may see only their own company's data) must get access-denied on the page and its CSV export.
+     * Issue: D49.
+     */
+    @Test
+    void recruiterCannotOpenCoordinatorReports() throws Exception {
+        mvc.perform(get("/coordinator/reports").with(user("recruiter").roles("RECRUITER")))
+                .andExpect(status().isForbidden());
+        mvc.perform(get("/coordinator/reports/scores.csv").with(user("recruiter").roles("RECRUITER")))
+                .andExpect(status().isForbidden());
+    }
+
     /** SEC-02: every form that changes data is protected against CSRF, including Settings. Issue: D31. */
     @Test
     void settingsPostWithoutCsrfTokenIsRejected() throws Exception {

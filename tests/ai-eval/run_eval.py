@@ -33,7 +33,7 @@ import argparse, json, os, re, sys, time, urllib.request, urllib.error, hashlib,
 from prompts import PROMPTS
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-LETTERS = json.load(open(os.path.join(HERE, "..", "..", "ai-eval", "letters.json")))["letters"]
+LETTERS = json.load(open(os.path.join(HERE, "..", "..", "ai-eval", "letters.json"), encoding="utf-8"))["letters"]
 RAW_DIR = os.path.join(HERE, "raw")
 
 BASE_URL = os.environ.get("AI_BASE_URL", "https://openrouter.ai/api/v1").rstrip("/")
@@ -88,7 +88,7 @@ def main():
     out_path = os.path.join(RAW_DIR, f"{args.prompt}-{tag}-{stamp}.jsonl")
 
     n = 0
-    with open(out_path, "w") as out:
+    with open(out_path, "w", encoding="utf-8") as out:
         meta = {"record": "meta", "prompt": args.prompt, "model": "simulated" if args.simulate else MODEL,
                 "base_url": "n/a" if args.simulate else BASE_URL, "temperature": cfg["temperature"],
                 "runs": args.runs, "time": stamp}

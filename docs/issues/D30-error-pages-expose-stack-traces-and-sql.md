@@ -17,6 +17,6 @@ SEC-03: error pages never show stack traces, SQL, class names or other internals
 **Priority:** P2
 **Category:** security
 **Environment:** Portal (Java 17, Spring Boot 3) + Engine 1.0.0 on 127.0.0.1; Chrome/Firefox current; AI provider only where noted.
-**Evidence:** tests/system stacktrace; captured page bodies.
+**Evidence:** On a fresh start (27/11/2026) the error page for /postings?minAllowance=3,000 shows the exception class name; the long-justification error page shows a "Technical details" block with 74 "at org.springframework..." stack frames and the SQL statement.
 **Discovered by:** Abdulaziz Debs
 **Technique that found it:** Security testing (information disclosure)

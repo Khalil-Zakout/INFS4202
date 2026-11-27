@@ -17,6 +17,6 @@ USR-03: after 5 consecutive failed logins the account is locked for 15 minutes. 
 **Priority:** P2
 **Category:** security
 **Environment:** Portal (Java 17, Spring Boot 3) + Engine 1.0.0 on 127.0.0.1; Chrome/Firefox current; AI provider only where noted.
-**Evidence:** tests/system lockout; the exact-case control does lock after 5.
+**Evidence:** tests/system/reproduce.py prints "[D28] DEFECT 12 mixed-case failures did not lock the account". Control: 5 failures with the exact username do lock it.
 **Discovered by:** Abdulaziz Debs
 **Technique that found it:** Security testing

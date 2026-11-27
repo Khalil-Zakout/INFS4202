@@ -50,7 +50,8 @@ def main():
     both = states[7] == "Accepted" and states[8] == "Accepted"
     print("\nDEFECT reproduced: both acceptances succeeded for one seat." if both
           else "Not reproduced on this run (the race is timing-dependent; retry on a fresh --reset).")
-    return 0 if both else 1
+    # Same convention as the other suites: exit 1 = the defect (D03) is present.
+    return 1 if both else 0
 
 
 if __name__ == "__main__":

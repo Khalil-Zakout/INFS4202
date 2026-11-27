@@ -2,7 +2,7 @@
 
 Team: **UniPlace QA Team** · INFS4202 Software Testing & Quality Assurance, Fall 2026
 Members: Khalil Zakout (60314057), Monir Skaik (60314058), Abdulaziz Debs (60309913)
-Presented at M1 (Week 13) and kept up to date. Change log at the end.
+Kept up to date during the project; every change is dated in the change log at the end.
 
 ---
 
@@ -130,27 +130,39 @@ present — so R10 is traceable):
   property tests and prompt experiment.
 
 **Git workflow.**
-- `main` is protected and always builds; the vendor's *Initial import* is the
-  baseline and is never rewritten.
-- One **branch per work item**, named `area/short-description`
-  (e.g. `offers/seat-race`, `engine/rank-order`).
-- **Pull requests** reviewed by one other member before merge; the review checks
-  that each new test names its requirement and designed case, and that any
-  reported defect has a reproduction.
-- **Conventions:** test case IDs `TC-<MODULE>-NNN`; issues use the template and
-  carry one category + one severity + one priority label and the discoverer as
-  assignee; commits reference the issue (`#12`) they relate to.
-- **CI:** the *Tests* workflow runs on every push; our defect-reproduction tests
-  are expected to fail until the vendor fixes them — the failing count is tracked
-  in `tests/README.md` and the final report, so the numbers match.
-- **Secrets:** API keys are read from environment variables only; `.gitignore`
-  keeps `bin/`, `portal/data/`, logs and `*.env` out of the repository.
+- `main` holds the vendor's *Initial import* as the untouched baseline; nothing is ever force-pushed or
+  rewritten. From 27/11/2026 `main` is protected on GitHub (Settings -> Branches): a change needs a pull
+  request with one approval from another member.
+- **Phase 1 (until 22/11/2026):** the first version of each owner's work was imported into `main` as one
+  commit per owner, in the owner's name, pushed together from Khalil's machine (Khalil: strategy, test
+  cases, Applications & Offers white-box tests; Monir: Engine contract and performance suites; Abdulaziz:
+  security, system and AI-evaluation tests). A stray invisible character in those three author e-mails
+  means GitHub does not link them to the accounts; every later commit, pull request and issue is linked.
+- **Phase 2 (from 27/11/2026):** every change goes through a **branch and a pull request reviewed and approved
+  by another member** before merge, named `area/short-description` (e.g. `results/engine`,
+  `results/security-ai`, `docs/final-report`). The review checks that each new test names its requirement and
+  designed case, and that each reported defect has a reproduction. See the change log for why we switched.
+- **Conventions:** test case IDs `TC-<MODULE>-NNN`; every defect is one GitHub issue that uses the
+  template, carries one category + one severity + one priority label, starts its title with a stable code
+  (`[D01] ...`) used in the test cases and the report, and is filed by and assigned to the member who
+  discovered it (`scripts/file_issues.py`, run by each member from their own account).
+- **CI:** the *Tests* workflow runs the Portal suite on every push. Our defect-reproduction tests are
+  expected to fail until the vendor fixes the defects, so a red run is the expected state; the failing
+  count is tracked in `tests/README.md` and the final report so the numbers match.
+- **Results:** each owner runs their suites with `python tests/run_all.py <suites> --save` and commits the
+  dated output under `docs/results/` through a pull request.
+- **Secrets:** API keys are read from environment variables only; `.gitignore` keeps `bin/`, `portal/data/`,
+  logs, `*.env` and raw AI answers out of the repository.
 
 ## 7. Change log
 
 | Date | Change | Why |
 |------|--------|-----|
-| [Week 13] | Initial strategy presented at M1. | — |
-| [Week 13] | Added a concurrency level after reading `OfferService.accept` (no lock around the seat check). | Code review showed a likely OFF-04 race; a single-thread suite would miss it. |
-| [Week 14] | Promoted "Users, Access & Security" to a primary module (was secondary). | Early probing found server-side authorization gaps (IDOR) and secret exposure — higher impact than first judged. |
-| [Week 14] | Added model-free AI prompt-property tests and a pre-registered prompt experiment. | We could not rely on a model being available in CI; the privacy/format defects are provable without one. |
+| 22/11/2026 | First version of this strategy: risk-based plan, three primary modules, four test levels. | Starting point after exploring the system and reading the Requirements and the code. |
+| 22/11/2026 | Added a concurrency check after reading `OfferService.accept` (seat check and save without a lock). | Code review showed a likely OFF-04 race that single-threaded tests would never hit; `seat_race.py` then reproduced D03. |
+| 22/11/2026 | Promoted "Users, Access & Security" to a primary module (it was a secondary one). | The first forced-browsing probes found server-side authorization gaps (D05, D48) and secrets in clear text (D06): higher impact than first judged. |
+| 22/11/2026 | Added model-free AI prompt-property tests and a pre-registered prompt experiment. | A model key is not available in CI; the privacy and format defects can be proved without a model. |
+| 27/11/2026 | Git workflow: from now on every change goes through a branch and a pull request approved by another member (Phase 2 above). | In Phase 1 the suites went straight to `main` from one machine and reviews were informal, which left no record in the repository; `main` is now protected so the rule is enforced, not just agreed. |
+| 27/11/2026 | Added white-box JUnit tests that call the real `PromptBuilder` (`AiPromptDefectTest`). | The Python prompt-property tests check a copy of the shipped prompt; testing the real class is stronger evidence for D08, D32 and D42. |
+| 27/11/2026 | Swept every Coordinator URL with other roles; added D49 (reports open to all) and D50 (Engine accepts an out-of-range GPA). | Re-reading `SecurityConfig` showed `/coordinator/reports` missing from the Coordinator-only rule; a designed case (TC-ENG-004) had failed without an issue. |
+| 27/11/2026 | Made every suite runnable on Windows with one command (`tests/run_all.py`), and made D06/D33 reproducible without a log file or an AI key. | All three members work on Windows; a grader must be able to reproduce each issue from its text alone. |

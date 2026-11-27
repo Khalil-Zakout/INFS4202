@@ -17,6 +17,6 @@ USR-02: passwords have at least 10 characters including at least one digit, and 
 **Priority:** P2
 **Category:** security
 **Environment:** Portal (Java 17, Spring Boot 3) + Engine 1.0.0 on 127.0.0.1; Chrome/Firefox current; AI provider only where noted.
-**Evidence:** tests/system pwd-change; the create-user path (control) rejects the same password.
+**Evidence:** tests/system/reproduce.py prints "[D29] DEFECT password changed to 12 letters with no digit". Control: Coordinator -> Users rejects the same password when creating a user.
 **Discovered by:** Abdulaziz Debs
 **Technique that found it:** Boundary value analysis

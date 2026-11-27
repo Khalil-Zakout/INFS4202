@@ -4,12 +4,12 @@
 Outputs:
   docs/issues/<code>-<slug>.md      one committed Markdown body per defect
   docs/issues/INDEX.md              a summary table (also pasted into the report Q4)
-  scripts/create_issues.sh          `gh issue create` calls, labels + assignee
+  docs/issues/manifest.json         code, title, labels and owner, read by scripts/file_issues.py
 
 Run:  python3 scripts/gen_issues.py
-Then (once the GitHub repo exists and labels are created):
-      bash scripts/create_issues.sh
+Then each member, signed in to gh as themselves:  python scripts/file_issues.py M1|M2|M3
 """
+import json
 import os
 import re
 from collections import Counter
@@ -63,7 +63,7 @@ def main():
              "| Code | Title | Category | Severity | Priority | Requirement | Discovered by |",
              "|------|-------|----------|----------|----------|-------------|----------------|"]
     for it in ISSUES:
-        with open(os.path.join(OUT, f"{it['code']}-{slug(it['title'])}.md"), "w") as f:
+        with open(os.path.join(OUT, f"{it['code']}-{slug(it['title'])}.md"), "w", encoding="utf-8", newline="\n") as f:
             f.write(f"# {title(it)}\n\n{body(it)}")
         index.append(f"| {it['code']} | {it['title']} | {it['cat']} | {it['sev']} | {it['prio']} "
                      f"| {it['req']} | {NAMES[it['who']]} |")
@@ -76,43 +76,19 @@ def main():
               "- By severity: " + ", ".join(f"{k} {sev[k]}" for k in ("critical", "major", "minor", "enhancement") if sev[k]),
               "- By category: " + ", ".join(f"{k} {cat[k]}" for k in sorted(cat)),
               f"- Severity-weighted (C3/Maj2/Min1/Enh0.5): **{weight:g}**", ""]
-    with open(os.path.join(OUT, "INDEX.md"), "w") as f:
+    with open(os.path.join(OUT, "INDEX.md"), "w", encoding="utf-8", newline="\n") as f:
         f.write("\n".join(index) + "\n")
 
-    # gh script — each member files their OWN issues (so GitHub records them as author, for R10)
-    who_name = {"M1": "Khalil Zakout", "M2": "Monir Skaik", "M3": "Abdulaziz Debs"}
-    sh = ["#!/usr/bin/env bash",
-          "# Create this member's defect issues on GitHub, authored by whoever runs it.",
-          "#",
-          "# Each member runs ONLY their own block, signed in to gh as themselves:",
-          "#   gh auth login                       # once, as yourself",
-          "#   MEMBER=M1 bash scripts/create_issues.sh   # Khalil",
-          "#   MEMBER=M2 bash scripts/create_issues.sh   # Monir",
-          "#   MEMBER=M3 bash scripts/create_issues.sh   # Abdulaziz",
-          "# Issues are created by you and assigned to you (@me). Run from the repo root.",
-          "set -euo pipefail",
-          'cd "$(dirname "$0")/.."',
-          'repo="${REPO:-$(gh repo view --json nameWithOwner -q .nameWithOwner)}"',
-          'only="${MEMBER:?set MEMBER=M1 (Khalil), M2 (Monir) or M3 (Abdulaziz)}"',
-          'echo "Creating $only issues in $repo as $(gh api user -q .login)"', ""]
-    for it in ISSUES:
-        md = f"docs/issues/{it['code']}-{slug(it['title'])}.md"
-        labels = f"{it['cat']},severity:{it['sev']},priority:{it['prio']}"
-        sh.append(
-            f'if [ "$only" = "{it["who"]}" ]; then\n'
-            f'  gh issue create --repo "$repo" --title {shq(title(it))} '
-            f'--body-file "{md}" --label "{labels}" --assignee "@me"\n'
-            f'fi\n')
-    with open(os.path.join(HERE, "create_issues.sh"), "w") as f:
-        f.write("\n".join(sh) + "\n")
-    os.chmod(os.path.join(HERE, "create_issues.sh"), 0o755)
+    # Manifest read by scripts/file_issues.py (each member files their OWN issues, for R10).
+    manifest = [{"code": it["code"], "title": title(it), "member": it["who"], "discoverer": NAMES[it["who"]],
+                 "file": f"docs/issues/{it['code']}-{slug(it['title'])}.md",
+                 "labels": f"{it['cat']},severity:{it['sev']},priority:{it['prio']}"} for it in ISSUES]
+    with open(os.path.join(OUT, "manifest.json"), "w", encoding="utf-8", newline="\n") as f:
+        json.dump(manifest, f, indent=1, ensure_ascii=False)
+        f.write("\n")
 
     print(f"{len(ISSUES)} issues rendered to docs/issues/")
     print("by severity:", dict(sev), "| weighted:", weight)
-
-
-def shq(s):
-    return "'" + s.replace("'", "'\\''") + "'"
 
 
 if __name__ == "__main__":
