@@ -16,6 +16,6 @@ USA-01: every refused operation tells the user the specific reason. `Application
 **Priority:** P3
 **Category:** ui
 **Environment:** Portal (Java 17, Spring Boot 3) + Engine 1.0.0 on 127.0.0.1; Chrome/Firefox current; AI provider only where noted.
-**Evidence:** tests/system apply-msg.
+**Evidence:** tests/system/reproduce.py prints "[D39] DEFECT refused apply shows generic message: Unable to submit your application. Please check the posting and try again."
 **Discovered by:** Khalil Zakout
 **Technique that found it:** Usability / error-message review

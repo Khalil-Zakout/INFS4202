@@ -18,6 +18,6 @@ USR-04: logging out invalidates the session immediately. The app's "Log out" pos
 **Priority:** P2
 **Category:** security
 **Environment:** Portal (Java 17, Spring Boot 3) + Engine 1.0.0 on 127.0.0.1; Chrome/Firefox current; AI provider only where noted.
-**Evidence:** tests/system logout; Spring's /logout (control) does invalidate, /account/logout does not.
+**Evidence:** tests/system/reproduce.py prints "[D27] DEFECT old session id still authenticated after /account/logout". Control: Spring's own /logout does invalidate the session; the app's /account/logout only deletes the cookie.
 **Discovered by:** Abdulaziz Debs
 **Technique that found it:** Session management testing

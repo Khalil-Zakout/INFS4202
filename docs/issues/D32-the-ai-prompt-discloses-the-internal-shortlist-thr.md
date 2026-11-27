@@ -6,7 +6,8 @@
 AI-10: prompts contain no internal business rules or thresholds. The feedback prompt includes "Internal note: recruiters reject applications that score below 60, so be strict around that value", steering the model with an internal rule and biasing scores around 60.
 
 **Steps to reproduce** (from a fresh start of the system: `./start.sh --reset`; dates are relative to the day of the start, the login password for every account is `Uniplace!2026`):
-1. Configure a provider and capture the request for letter feedback (or read PromptBuilder).
+1. Read the feedback instructions in `PromptBuilder` (portal/src/main/java/com/halcyon/uniplace/ai/PromptBuilder.java).
+2. Or run `cd portal && ./mvnw test -Dtest=AiPromptDefectTest`, which builds the real prompt.
 
 **Expected result:** The prompt carries only the posting and the letter.
 
@@ -16,6 +17,6 @@ AI-10: prompts contain no internal business rules or thresholds. The feedback pr
 **Priority:** P2
 **Category:** ai
 **Environment:** Portal (Java 17, Spring Boot 3) + Engine 1.0.0 on 127.0.0.1; Chrome/Firefox current; AI provider only where noted.
-**Evidence:** ai:test_prompt_properties.test_v1_contains_internal_threshold_DEFECT; captured prompt.
+**Evidence:** qa:AiPromptDefectTest.promptDoesNotDiscloseTheShortlistThreshold fails: "AI-10: the prompt tells the provider the internal shortlist threshold". The prompt contains "Internal note: recruiters reject applications that score below 60".
 **Discovered by:** Abdulaziz Debs
-**Technique that found it:** White-box review + prompt capture
+**Technique that found it:** White-box review + unit test

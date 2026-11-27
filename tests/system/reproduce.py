@@ -5,7 +5,7 @@ suite exits non-zero when any defect is present. Run after a fresh reset:
 
     cd tests/system && python3 reproduce.py
 
-Covers issues D05, D48, D06, D07, D27, D28, D29, D39, D47, D35 (system view).
+Covers issues D05, D48, D06, D07, D27, D28, D29, D39, D47, D35 (system view), D49, D33.
 The offer/state and company issues (D02, D04, D21..D26, D31, D01) have JUnit
 reproductions in portal/src/test/java/com/halcyon/uniplace/qa; D03 is seat_race.py.
 """
@@ -37,11 +37,17 @@ def d48_idor_document():
 def d06_secrets():
     c = login("coordinator")
     c.post("/coordinator/settings", {"ai.apiKey": "sk-demo-SECRET-0001", "smtp.password": "Smtp-SECRET-0002"})
-    log = open(os.path.join(REPO, "logs", "portal.log")).read()
-    in_log = "sk-demo-SECRET-0001" in log or "Smtp-SECRET-0002" in log
+    # The Portal logs to its console window. Pass a saved copy of that output with
+    # PORTAL_LOG=<file> to check the log as well; the Settings page is always checked.
+    log_path = os.environ.get("PORTAL_LOG", "")
+    in_log = None
+    if log_path and os.path.exists(log_path):
+        log = open(log_path, encoding="utf-8", errors="replace").read()
+        in_log = "sk-demo-SECRET-0001" in log or "Smtp-SECRET-0002" in log
     html = c.get("/coordinator/settings")[1]
     in_html = "sk-demo-SECRET-0001" in html or "Smtp-SECRET-0002" in html
-    report("D06", in_log or in_html, f"secret in log={in_log}, in settings HTML value={in_html}")
+    log_txt = "not checked (set PORTAL_LOG)" if in_log is None else in_log
+    report("D06", bool(in_log) or in_html, f"secret in log={log_txt}, in settings HTML value={in_html}")
     c.post("/coordinator/settings", {"ai.apiKey": "", "ai.apiKey.clear": "on",
                                       "smtp.password": "", "smtp.password.clear": "on"})
 
@@ -100,10 +106,32 @@ def d35_outbox_unpaginated():
     report("D35", rows > 20 and 'class="pager"' not in h, f"outbox shows {rows} rows on one page, no pager")
 
 
+def d49_reports_open_to_all():
+    s1, h1, _ = login("recruiter.gulfbank").get("/coordinator/reports", follow=False)
+    s2, h2, _ = login("student.omar").get("/coordinator/reports/scores.csv", follow=False)
+    report("D49", s1 == 200 or s2 == 200,
+           f"recruiter.gulfbank /coordinator/reports -> {s1}; student.omar /coordinator/reports/scores.csv -> {s2} "
+           f"(CSV starts: {h2[:40]!r})")
+
+
+def d33_feedback_cache_ignores_letter():
+    # Uses the built-in simulated assistant (no AI key needed): its score depends on the letter.
+    short = "I would like this internship. I enjoy working on projects."
+    long_ = ("I have built several Java and Spring Boot services with SQL databases and REST APIs. "
+             "I wrote unit tests with JUnit, used Git daily, and deployed on Linux. ") * 4
+    score = lambda h: (re.search(r"(\d{1,3})\s*/\s*100", text(h)) or [None, "?"])[1]
+    s = login("student.khalid")
+    first = score(s.post("/postings/2/feedback", {"letter": short})[1])
+    second = score(s.post("/postings/2/feedback", {"letter": long_})[1])
+    fresh = score(login("student.noor").post("/postings/2/feedback", {"letter": long_})[1])
+    report("D33", second == first and fresh != first,
+           f"same student, new letter scored {second} (= first letter {first}); the new letter alone scores {fresh}")
+
+
 def main():
     for check in (d05_idor_application, d48_idor_document, d06_secrets, d07_xss, d27_logout,
                   d28_lockout, d29_password_no_digit, d39_generic_message, d47_withdraw_accepted,
-                  d35_outbox_unpaginated):
+                  d35_outbox_unpaginated, d49_reports_open_to_all, d33_feedback_cache_ignores_letter):
         try:
             check()
         except Exception as ex:  # noqa: BLE001

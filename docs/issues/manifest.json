@@ -1,0 +1,418 @@
+[
+ {
+  "code": "D01",
+  "title": "[D01] Match score is cached per posting and shared across students",
+  "member": "M1",
+  "discoverer": "Khalil Zakout",
+  "file": "docs/issues/D01-match-score-is-cached-per-posting-and-shared-acros.md",
+  "labels": "integration,severity:critical,priority:p1"
+ },
+ {
+  "code": "D02",
+  "title": "[D02] Filling a posting does not reject its remaining active applications",
+  "member": "M1",
+  "discoverer": "Khalil Zakout",
+  "file": "docs/issues/D02-filling-a-posting-does-not-reject-its-remaining-ac.md",
+  "labels": "state,severity:critical,priority:p1"
+ },
+ {
+  "code": "D03",
+  "title": "[D03] Two students can accept offers for the last seat at the same moment",
+  "member": "M1",
+  "discoverer": "Khalil Zakout",
+  "file": "docs/issues/D03-two-students-can-accept-offers-for-the-last-seat-a.md",
+  "labels": "state,severity:critical,priority:p1"
+ },
+ {
+  "code": "D04",
+  "title": "[D04] A suspended company's applications are not frozen",
+  "member": "M1",
+  "discoverer": "Khalil Zakout",
+  "file": "docs/issues/D04-a-suspended-company-s-applications-are-not-frozen.md",
+  "labels": "functional,severity:critical,priority:p1"
+ },
+ {
+  "code": "D05",
+  "title": "[D05] Any authenticated user can view any application (broken access control)",
+  "member": "M3",
+  "discoverer": "Abdulaziz Debs",
+  "file": "docs/issues/D05-any-authenticated-user-can-view-any-application-br.md",
+  "labels": "security,severity:critical,priority:p1"
+ },
+ {
+  "code": "D48",
+  "title": "[D48] Any recruiter can download any student's CV and transcript",
+  "member": "M3",
+  "discoverer": "Abdulaziz Debs",
+  "file": "docs/issues/D48-any-recruiter-can-download-any-student-s-cv-and-tr.md",
+  "labels": "security,severity:critical,priority:p1"
+ },
+ {
+  "code": "D49",
+  "title": "[D49] Students and recruiters can open the Coordinator reports and export them as CSV",
+  "member": "M3",
+  "discoverer": "Abdulaziz Debs",
+  "file": "docs/issues/D49-students-and-recruiters-can-open-the-coordinator-r.md",
+  "labels": "security,severity:critical,priority:p1"
+ },
+ {
+  "code": "D06",
+  "title": "[D06] API key and SMTP password are written to the log and shown in plaintext",
+  "member": "M3",
+  "discoverer": "Abdulaziz Debs",
+  "file": "docs/issues/D06-api-key-and-smtp-password-are-written-to-the-log-a.md",
+  "labels": "security,severity:critical,priority:p1"
+ },
+ {
+  "code": "D07",
+  "title": "[D07] Stored XSS via company name on the postings list",
+  "member": "M3",
+  "discoverer": "Abdulaziz Debs",
+  "file": "docs/issues/D07-stored-xss-via-company-name-on-the-postings-list.md",
+  "labels": "security,severity:critical,priority:p1"
+ },
+ {
+  "code": "D08",
+  "title": "[D08] Student name, number and GPA are sent to the AI provider",
+  "member": "M3",
+  "discoverer": "Abdulaziz Debs",
+  "file": "docs/issues/D08-student-name-number-and-gpa-are-sent-to-the-ai-pro.md",
+  "labels": "security,severity:critical,priority:p1"
+ },
+ {
+  "code": "D47",
+  "title": "[D47] An ACCEPTED application can be withdrawn via a direct POST",
+  "member": "M1",
+  "discoverer": "Khalil Zakout",
+  "file": "docs/issues/D47-an-accepted-application-can-be-withdrawn-via-a-dir.md",
+  "labels": "state,severity:critical,priority:p1"
+ },
+ {
+  "code": "D09",
+  "title": "[D09] Engine refuses eligibility when GPA exactly equals the minimum",
+  "member": "M2",
+  "discoverer": "Monir Skaik",
+  "file": "docs/issues/D09-engine-refuses-eligibility-when-gpa-exactly-equals.md",
+  "labels": "integration,severity:major,priority:p2"
+ },
+ {
+  "code": "D10",
+  "title": "[D10] Transcript valid-window is one day short (day 180 rejected)",
+  "member": "M2",
+  "discoverer": "Monir Skaik",
+  "file": "docs/issues/D10-transcript-valid-window-is-one-day-short-day-180-r.md",
+  "labels": "integration,severity:major,priority:p2"
+ },
+ {
+  "code": "D11",
+  "title": "[D11] Engine returns HTTP 500 to well-formed JSON",
+  "member": "M2",
+  "discoverer": "Monir Skaik",
+  "file": "docs/issues/D11-engine-returns-http-500-to-well-formed-json.md",
+  "labels": "integration,severity:major,priority:p1"
+ },
+ {
+  "code": "D12",
+  "title": "[D12] Match score adds the full nice-to-have weight when the list is empty",
+  "member": "M2",
+  "discoverer": "Monir Skaik",
+  "file": "docs/issues/D12-match-score-adds-the-full-nice-to-have-weight-when.md",
+  "labels": "integration,severity:major,priority:p1"
+ },
+ {
+  "code": "D13",
+  "title": "[D13] Match skill comparison is case- and space-sensitive",
+  "member": "M2",
+  "discoverer": "Monir Skaik",
+  "file": "docs/issues/D13-match-skill-comparison-is-case-and-space-sensitive.md",
+  "labels": "integration,severity:major,priority:p1"
+ },
+ {
+  "code": "D14",
+  "title": "[D14] Candidate ranking breaks GPA ties in ascending order",
+  "member": "M2",
+  "discoverer": "Monir Skaik",
+  "file": "docs/issues/D14-candidate-ranking-breaks-gpa-ties-in-ascending-ord.md",
+  "labels": "integration,severity:major,priority:p1"
+ },
+ {
+  "code": "D15",
+  "title": "[D15] aboveCut returns one id more than the number of seats",
+  "member": "M2",
+  "discoverer": "Monir Skaik",
+  "file": "docs/issues/D15-abovecut-returns-one-id-more-than-the-number-of-se.md",
+  "labels": "integration,severity:major,priority:p1"
+ },
+ {
+  "code": "D16",
+  "title": "[D16] Ranking 200 candidates takes about 5 seconds (budget 500 ms)",
+  "member": "M2",
+  "discoverer": "Monir Skaik",
+  "file": "docs/issues/D16-ranking-200-candidates-takes-about-5-seconds-budge.md",
+  "labels": "performance,severity:major,priority:p2"
+ },
+ {
+  "code": "D17",
+  "title": "[D17] Engine accepts interviews that end after 18:00",
+  "member": "M2",
+  "discoverer": "Monir Skaik",
+  "file": "docs/issues/D17-engine-accepts-interviews-that-end-after-18-00.md",
+  "labels": "integration,severity:major,priority:p2"
+ },
+ {
+  "code": "D18",
+  "title": "[D18] Back-to-back interviews are rejected as overlapping",
+  "member": "M2",
+  "discoverer": "Monir Skaik",
+  "file": "docs/issues/D18-back-to-back-interviews-are-rejected-as-overlappin.md",
+  "labels": "integration,severity:major,priority:p2"
+ },
+ {
+  "code": "D19",
+  "title": "[D19] No transport supplement at exactly 30 weekly hours",
+  "member": "M2",
+  "discoverer": "Monir Skaik",
+  "file": "docs/issues/D19-no-transport-supplement-at-exactly-30-weekly-hours.md",
+  "labels": "integration,severity:major,priority:p2"
+ },
+ {
+  "code": "D20",
+  "title": "[D20] Monthly cap ignores the transport supplement",
+  "member": "M2",
+  "discoverer": "Monir Skaik",
+  "file": "docs/issues/D20-monthly-cap-ignores-the-transport-supplement.md",
+  "labels": "integration,severity:major,priority:p2"
+ },
+ {
+  "code": "D21",
+  "title": "[D21] Withdrawn applications count against the active-application limit",
+  "member": "M1",
+  "discoverer": "Khalil Zakout",
+  "file": "docs/issues/D21-withdrawn-applications-count-against-the-active-ap.md",
+  "labels": "functional,severity:major,priority:p1"
+ },
+ {
+  "code": "D22",
+  "title": "[D22] Probation active-application limit is never applied",
+  "member": "M1",
+  "discoverer": "Khalil Zakout",
+  "file": "docs/issues/D22-probation-active-application-limit-is-never-applie.md",
+  "labels": "functional,severity:major,priority:p1"
+ },
+ {
+  "code": "D23",
+  "title": "[D23] Offer response deadline is rounded to midnight and drops the time",
+  "member": "M1",
+  "discoverer": "Khalil Zakout",
+  "file": "docs/issues/D23-offer-response-deadline-is-rounded-to-midnight-and.md",
+  "labels": "functional,severity:major,priority:p2"
+ },
+ {
+  "code": "D24",
+  "title": "[D24] Uploaded documents are lost on every restart",
+  "member": "M1",
+  "discoverer": "Khalil Zakout",
+  "file": "docs/issues/D24-uploaded-documents-are-lost-on-every-restart.md",
+  "labels": "configuration,severity:major,priority:p2"
+ },
+ {
+  "code": "D25",
+  "title": "[D25] Academic standing is not recomputed when the Coordinator changes the GPA",
+  "member": "M1",
+  "discoverer": "Khalil Zakout",
+  "file": "docs/issues/D25-academic-standing-is-not-recomputed-when-the-coord.md",
+  "labels": "functional,severity:major,priority:p2"
+ },
+ {
+  "code": "D26",
+  "title": "[D26] Company name uniqueness is case-sensitive when renaming",
+  "member": "M1",
+  "discoverer": "Khalil Zakout",
+  "file": "docs/issues/D26-company-name-uniqueness-is-case-sensitive-when-ren.md",
+  "labels": "functional,severity:major,priority:p2"
+ },
+ {
+  "code": "D27",
+  "title": "[D27] Logging out does not invalidate the server session",
+  "member": "M3",
+  "discoverer": "Abdulaziz Debs",
+  "file": "docs/issues/D27-logging-out-does-not-invalidate-the-server-session.md",
+  "labels": "security,severity:major,priority:p2"
+ },
+ {
+  "code": "D28",
+  "title": "[D28] Account lockout can be bypassed by varying the username case",
+  "member": "M3",
+  "discoverer": "Abdulaziz Debs",
+  "file": "docs/issues/D28-account-lockout-can-be-bypassed-by-varying-the-use.md",
+  "labels": "security,severity:major,priority:p2"
+ },
+ {
+  "code": "D29",
+  "title": "[D29] Password change accepts a password with no digit",
+  "member": "M3",
+  "discoverer": "Abdulaziz Debs",
+  "file": "docs/issues/D29-password-change-accepts-a-password-with-no-digit.md",
+  "labels": "security,severity:major,priority:p2"
+ },
+ {
+  "code": "D30",
+  "title": "[D30] Error pages expose stack traces and SQL",
+  "member": "M3",
+  "discoverer": "Abdulaziz Debs",
+  "file": "docs/issues/D30-error-pages-expose-stack-traces-and-sql.md",
+  "labels": "security,severity:major,priority:p2"
+ },
+ {
+  "code": "D31",
+  "title": "[D31] CSRF protection is disabled on the Settings endpoints",
+  "member": "M3",
+  "discoverer": "Abdulaziz Debs",
+  "file": "docs/issues/D31-csrf-protection-is-disabled-on-the-settings-endpoi.md",
+  "labels": "security,severity:major,priority:p2"
+ },
+ {
+  "code": "D32",
+  "title": "[D32] The AI prompt discloses the internal shortlist threshold",
+  "member": "M3",
+  "discoverer": "Abdulaziz Debs",
+  "file": "docs/issues/D32-the-ai-prompt-discloses-the-internal-shortlist-thr.md",
+  "labels": "ai,severity:major,priority:p2"
+ },
+ {
+  "code": "D33",
+  "title": "[D33] Letter-feedback cache ignores the letter content",
+  "member": "M3",
+  "discoverer": "Abdulaziz Debs",
+  "file": "docs/issues/D33-letter-feedback-cache-ignores-the-letter-content.md",
+  "labels": "ai,severity:major,priority:p2"
+ },
+ {
+  "code": "D34",
+  "title": "[D34] Letter-feedback scores vary by more than 10 points across runs",
+  "member": "M3",
+  "discoverer": "Abdulaziz Debs",
+  "file": "docs/issues/D34-letter-feedback-scores-vary-by-more-than-10-points.md",
+  "labels": "ai,severity:major,priority:p2"
+ },
+ {
+  "code": "D35",
+  "title": "[D35] List pages are not paginated (Outbox and Postings)",
+  "member": "M2",
+  "discoverer": "Monir Skaik",
+  "file": "docs/issues/D35-list-pages-are-not-paginated-outbox-and-postings.md",
+  "labels": "performance,severity:major,priority:p2"
+ },
+ {
+  "code": "D36",
+  "title": "[D36] Engine rejects an interview of exactly 120 minutes",
+  "member": "M2",
+  "discoverer": "Monir Skaik",
+  "file": "docs/issues/D36-engine-rejects-an-interview-of-exactly-120-minutes.md",
+  "labels": "functional,severity:minor,priority:p3"
+ },
+ {
+  "code": "D37",
+  "title": "[D37] Allowance whole-month count is off at month-end start dates",
+  "member": "M2",
+  "discoverer": "Monir Skaik",
+  "file": "docs/issues/D37-allowance-whole-month-count-is-off-at-month-end-st.md",
+  "labels": "integration,severity:minor,priority:p3"
+ },
+ {
+  "code": "D50",
+  "title": "[D50] Engine accepts out-of-range GPA and an unknown standing instead of answering 400",
+  "member": "M2",
+  "discoverer": "Monir Skaik",
+  "file": "docs/issues/D50-engine-accepts-out-of-range-gpa-and-an-unknown-sta.md",
+  "labels": "integration,severity:minor,priority:p3"
+ },
+ {
+  "code": "D51",
+  "title": "[D51] When the Engine is down, every student is treated as eligible and applications are accepted with match score 0",
+  "member": "M2",
+  "discoverer": "Monir Skaik",
+  "file": "docs/issues/D51-when-the-engine-is-down-every-student-is-treated-a.md",
+  "labels": "integration,severity:critical,priority:p1"
+ },
+ {
+  "code": "D38",
+  "title": "[D38] Searching postings by company is not sorted by deadline",
+  "member": "M1",
+  "discoverer": "Khalil Zakout",
+  "file": "docs/issues/D38-searching-postings-by-company-is-not-sorted-by-dea.md",
+  "labels": "functional,severity:minor,priority:p3"
+ },
+ {
+  "code": "D39",
+  "title": "[D39] A refused application shows a generic message, not the reason",
+  "member": "M1",
+  "discoverer": "Khalil Zakout",
+  "file": "docs/issues/D39-a-refused-application-shows-a-generic-message-not-.md",
+  "labels": "ui,severity:minor,priority:p3"
+ },
+ {
+  "code": "D40",
+  "title": "[D40] Recruiter applications list shows dates as MM/dd/yyyy",
+  "member": "M1",
+  "discoverer": "Khalil Zakout",
+  "file": "docs/issues/D40-recruiter-applications-list-shows-dates-as-mm-dd-y.md",
+  "labels": "ui,severity:minor,priority:p3"
+ },
+ {
+  "code": "D41",
+  "title": "[D41] Letter feedback names the wrong model",
+  "member": "M3",
+  "discoverer": "Abdulaziz Debs",
+  "file": "docs/issues/D41-letter-feedback-names-the-wrong-model.md",
+  "labels": "ai,severity:minor,priority:p3"
+ },
+ {
+  "code": "D42",
+  "title": "[D42] The AI prompt's worked example is malformed",
+  "member": "M3",
+  "discoverer": "Abdulaziz Debs",
+  "file": "docs/issues/D42-the-ai-prompt-s-worked-example-is-malformed.md",
+  "labels": "ai,severity:minor,priority:p3"
+ },
+ {
+  "code": "D44",
+  "title": "[D44] Specification: NOT-04 reminder window contradicts OFF-02",
+  "member": "M2",
+  "discoverer": "Monir Skaik",
+  "file": "docs/issues/D44-specification-not-04-reminder-window-contradicts-o.md",
+  "labels": "requirements,severity:minor,priority:p3"
+ },
+ {
+  "code": "D45",
+  "title": "[D45] Vendor test encodes the wrong probation limit",
+  "member": "M1",
+  "discoverer": "Khalil Zakout",
+  "file": "docs/issues/D45-vendor-test-encodes-the-wrong-probation-limit.md",
+  "labels": "tests,severity:minor,priority:p3"
+ },
+ {
+  "code": "D46",
+  "title": "[D46] Vendor test counts withdrawn applications as active",
+  "member": "M1",
+  "discoverer": "Khalil Zakout",
+  "file": "docs/issues/D46-vendor-test-counts-withdrawn-applications-as-activ.md",
+  "labels": "tests,severity:minor,priority:p3"
+ },
+ {
+  "code": "D52",
+  "title": "[D52] Vendor test asserts that an unreachable Engine means eligible",
+  "member": "M2",
+  "discoverer": "Monir Skaik",
+  "file": "docs/issues/D52-vendor-test-asserts-that-an-unreachable-engine-mea.md",
+  "labels": "tests,severity:minor,priority:p3"
+ },
+ {
+  "code": "D43",
+  "title": "[D43] Specification: public-holiday rule (INT-02) is untestable and unenforced",
+  "member": "M2",
+  "discoverer": "Monir Skaik",
+  "file": "docs/issues/D43-specification-public-holiday-rule-int-02-is-untest.md",
+  "labels": "requirements,severity:major,priority:p2"
+ }
+]

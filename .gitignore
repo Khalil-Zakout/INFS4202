@@ -12,4 +12,3 @@ node_modules/
 __pycache__/
 *.pyc
 tests/ai-eval/raw/
-scripts/create_issues.sh

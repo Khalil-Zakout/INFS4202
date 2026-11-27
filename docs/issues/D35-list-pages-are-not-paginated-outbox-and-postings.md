@@ -11,12 +11,12 @@ PERF-05: no page returns an unbounded list; every list is paginated or limited. 
 
 **Expected result:** At most 20 rows per page with a pager.
 
-**Actual result:** The Outbox shows 1117 rows on one page; the postings list shows all postings. No pager.
+**Actual result:** With 1,000 generated applications the Outbox shows about 1,100 rows on one page and the Postings list 31 rows, with no pager.
 
 **Severity:** Major
 **Priority:** P2
 **Category:** performance
 **Environment:** Portal (Java 17, Spring Boot 3) + Engine 1.0.0 on 127.0.0.1; Chrome/Firefox current; AI provider only where noted.
-**Evidence:** perf:portal_pages.py (rows/page = 1117 for Outbox).
+**Evidence:** `python tests/performance/portal_pages.py --generate 1000` (27/11/2026): "Outbox (coordinator) rows/page=1121 ... not paginated (PERF-05)" and "Postings (student) rows/page=31 ... not paginated".
 **Discovered by:** Monir Skaik
 **Technique that found it:** Performance / volume testing

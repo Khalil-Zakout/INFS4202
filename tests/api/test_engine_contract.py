@@ -238,6 +238,14 @@ class Allowance(unittest.TestCase):
         self.assertEqual(400, call("/allowance", allowance(5000.01, "2027-01-01", "2027-01-31", 40)).status)
         self.assertEqual(400, call("/allowance", allowance(3000, "2027-01-01", "2027-01-31", 41)).status)
 
+    def test_TC_ENG_ALLOW_08_month_end_start_is_one_whole_month_DEFECT(self):
+        # OFF-05: a month runs to the day before the same day of the next month; when that day does not
+        # exist, to the end of the next month. 31 Jan -> 28 Feb and 31 Mar -> 30 Apr are one month each.
+        for start, end in (("2027-01-31", "2027-02-28"), ("2027-03-31", "2027-04-30")):
+            r = call("/allowance", allowance(3000, start, end, 29))
+            self.assertAlmostEqual(3000.00, float(r.json["total"]), places=2,
+                                   msg=f"{start}..{end} is one whole month: {r.text}")
+
     def test_TC_ENG_ALLOW_07_missing_lateDays_is_400_not_500_DEFECT(self):
         body = {"monthlyAllowance": 3000, "startDate": "2027-01-01", "endDate": "2027-01-31", "weeklyHours": 40}
         self.assertEqual(400, call("/allowance", body).status)
